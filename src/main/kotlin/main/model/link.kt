@@ -66,11 +66,10 @@ fun Digest.removeLinkById(linkId: String) {
 fun Digest.setNewLinkParameters(linkId: String, title: String) {
     this.updateTime = DateTime.now()
     val linkIdObj = ObjectId(linkId)
-    for (l: Link in this.links) {
-        if (l.id == linkIdObj) {
-            l.title = title
-            l.updateTime = DateTime.now()
-            break
+    this.links.forEach({
+        if (it.id == linkIdObj) {
+            it.title = title
+            return
         }
-    }
+    })
 }

@@ -68,7 +68,6 @@ class DigestController {
     fun modifyLink(@PathVariable digestId: String, @PathVariable linkId: String, @RequestParam title: String): Digest {
         val modifiedDigest: Digest = getDigestBydId(digestId)
         modifiedDigest.setNewLinkParameters(linkId, title)
-//        modifiedDigest.links.filter { l -> l.id == ObjectId(linkId) }.map { l -> l.title = title }.toList()
         return modifiedDigest.saveToDb()
     }
 
