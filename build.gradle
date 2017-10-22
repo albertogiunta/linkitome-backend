@@ -7,6 +7,9 @@ buildscript {
     ext.joda_version = '2.9.4'
     ext.mongodb_version = '2.0.0.RELEASE'
     ext.jackson_version = '2.9.0'
+    ext.commons_validator_version = '1.6'
+    ext.jsoup_version = '1.10.3'
+    ext.junit_version = '4.12'
 
     repositories {
         mavenCentral()
@@ -42,8 +45,11 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
     compile "joda-time:joda-time:$joda_version"
+    compile "commons-validator:commons-validator:$commons_validator_version"
+    compile "org.jsoup:jsoup:$jsoup_version"
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile "junit:junit:$junit_version"
 }
 
 compileKotlin {

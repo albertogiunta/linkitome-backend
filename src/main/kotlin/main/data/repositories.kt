@@ -1,7 +1,5 @@
-package main.model.crud
+package main.data
 
-import main.model.Digest
-import main.model.Link
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.MongoRepository
 

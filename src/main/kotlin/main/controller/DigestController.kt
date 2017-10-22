@@ -1,7 +1,7 @@
-package main.routes
+package main.controller
 
-import main.model.*
-import main.model.crud.DigestRepository
+import main.data.*
+import main.exceptions.DigestNotFoundException
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -19,7 +19,9 @@ class DigestController {
     fun removeDigests() = digestRepository.deleteAll()
 
     @PostMapping("/digests")
-    fun newDigest(@RequestParam title: String): Digest = digestRepository.save(Digest(ObjectId(), title))
+    fun newDigest(@RequestParam title: String): Digest {
+        return digestRepository.save(Digest(title = title))
+    }
 
     @GetMapping("/digests/{digestId}")
     fun getDigestBydId(@PathVariable digestId: String): Digest {
@@ -47,9 +49,12 @@ class DigestController {
     }
 
     @PostMapping("/digests/{digestId}/links")
-    fun newLink(@PathVariable digestId: String, @RequestParam title: String): Digest {
+    fun newLink(@PathVariable digestId: String,
+                @RequestParam("title", required = false) title: String?,
+                @RequestParam("comment", required = false) comment: String?,
+                @RequestParam url: String): Digest {
         val modifiedDigest: Digest = getDigestBydId(digestId)
-        modifiedDigest.addNewLink(title)
+        modifiedDigest.addNewLink(title, comment, url)
         return modifiedDigest.saveToDb()
     }
 
